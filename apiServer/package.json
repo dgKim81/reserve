@@ -1,0 +1,28 @@
+{
+  "name": "apiserver",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc && node ./build/app.js",
+    "start": "cross-env NODE_ENV=production node ./build/app.js --exec \"npm run compile\"",
+    "dev": "cross-env NODE_ENV=development nodemon -e ts --exec \"npm run compile\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "dgkim",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.7",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@sequelize/postgres": "^7.0.0-alpha.43",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "winston": "^3.17.0"
+  }
+}
