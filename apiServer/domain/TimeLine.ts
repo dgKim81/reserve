@@ -1,12 +1,19 @@
 import TimeSpan from "./TimeSpan";
 import TimeSpanOperator from "./TimeSpanOperator";
 
+/**
+ * 예약 시간을 계산하기 위한 타임라인 객체
+ */
 export default class TimeLine {
     private timeSpans: TimeSpan[] = [];
     constructor() {
 
     }
 
+    /**
+     * 시간대를 추가한다.
+     * @param span 추가할 시간대 
+     */
     addTimeSpan(span: TimeSpan) {
         const oTimeSpan: TimeSpan[] = this.timeSpans.filter(v => TimeSpanOperator.overlaps(span,v));
 
@@ -20,15 +27,27 @@ export default class TimeLine {
         this.timeSpans = [...lTimeSpan, span, ...rTimeSpan];
     }
 
+    /**
+     * 시간대를 제거한다.(Value Object 이므로 값이 같은지 여부를 확인한다.)
+     * @param span 제거 시간대
+     */
     removeTimeSpan(span: TimeSpan) {
         const findedIdx = this.timeSpans.findIndex(v => v.equals(span));
         this.timeSpans = this.timeSpans.splice(findedIdx, 1);
     }
 
+    /**
+     * 시간대를 반환한다.
+     * @returns 보유한 시간대
+     */
     getTimeSpans() {
         return this.timeSpans.map(v => new TimeSpan(v.beginTime, v.endTime));
     }
 
+    /**
+     * 시간대를 저장한다.
+     * @param timeSpans 새로운 시간대
+     */
     fillTimeLine(timeSpans: TimeSpan[]) {
         this.timeSpans = [];
 
@@ -38,7 +57,11 @@ export default class TimeLine {
         }
     }
 
-    // 타임 라인을 병합한다.
+    /**
+     * 현재 타임라인에 outer 타임라인을 병합한다.
+     * @param other 병합 대상 타임라인
+     * @returns 병합 된 타임라인(ex: 1~4, 3~6의 시간대가 존재하면 1~6의 시간대로 저장된다.)
+     */
     unifyTimeLine(other: TimeLine) {
         const thisSpans = this.getTimeSpans();
         const otherSpans = other.getTimeSpans();
@@ -86,7 +109,11 @@ export default class TimeLine {
         return result;
     }
 
-    // 타임 라인을 뺀다.
+    /**
+     * 현재 시간대에 other 타임라인을 뺀다.
+     * @param other 뺄 타임라인
+     * @returns 연산 결과 타임라인
+     */
     subtractTimeLine(other: TimeLine) {
         const thisSpans = this.getTimeSpans();
         const otherSpans = other.getTimeSpans();
@@ -116,7 +143,12 @@ export default class TimeLine {
         return result;
     }
     
-    // 비어있는 타임라인을 가져온다.
+    /**
+     * 비어 있는 시간대의 타임라인을 계산한다.
+     * @param beginTime 시작 시간(null이면 가장 작은 시간대의 시작시간)
+     * @param endTime 종료 시간(null이면 가장 큰 시간대의 종료시간)
+     * @returns 현재 설정된 타임라임의 비어있는 시간대를 가지는 타임라인
+     */
     inverseTimeLine(beginTime: Date | undefined, endTime: Date | undefined) {
         const thisSpans = this.getTimeSpans();
 

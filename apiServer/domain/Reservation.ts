@@ -3,12 +3,13 @@ import TimeLine from "./TimeLine";
 type ReservationStatus = "wait" | "confirm" | "cancel";
 
 class Reservation {
-    reservationId: string;
-    reserveTimeLine: TimeLine = new TimeLine();
+    reservationId: number;
+    customerId: number;
     status: ReservationStatus = "wait";
 
-    constructor(id: string) { 
-        this.reservationId = id;
+    constructor(customerId:number, rid: number) { 
+        this.customerId = customerId;
+        this.reservationId = rid;
     }
 
     validate(): boolean {
