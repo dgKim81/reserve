@@ -1,4 +1,4 @@
-import TimeSpan from "../domain/TimeSpan";
+import TimeSpan from "../domain/reservation/TimeSpan";
 
 describe("TimeSpan", () => {
   it("should create a valid TimeSpan object when beginTime is before endTime", () => {

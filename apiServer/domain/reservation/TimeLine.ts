@@ -1,5 +1,5 @@
 import TimeSpan from "./TimeSpan";
-import TimeSpanOperator from "./TimeSpanOperator";
+import TimeSpanOperator from "../policy/TimeSpanOperator";
 
 /**
  * 예약 시간을 계산하기 위한 타임라인 객체

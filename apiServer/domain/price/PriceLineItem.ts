@@ -1,4 +1,4 @@
-import ValueObject from "./ValueObject";
+import ValueObject from "../contextBase/ValueObject";
 
 type PriceLineItemConsumedObject = "product" | "policy" | "person";
 

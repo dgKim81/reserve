@@ -1,4 +1,4 @@
-import ValueObject from "./ValueObject";
+import ValueObject from "../contextBase/ValueObject";
 
 export default class TimeSpan extends ValueObject {
   constructor(public beginTime: Date, public endTime: Date) {

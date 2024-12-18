@@ -1,5 +1,5 @@
-import TimeSpan from "../domain/TimeSpan";
-import TimeLine from "../domain/TimeLine";
+import TimeSpan from "../domain/reservation/TimeSpan";
+import TimeLine from "../domain/reservation/TimeLine";
 
 describe("TimeLine", () => {
   let timeLine: TimeLine;

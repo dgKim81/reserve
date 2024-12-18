@@ -1,6 +1,6 @@
-import Payment from "./Payment";
+import Payment from "../payment/Payment";
 import PriceLineItem from "./PriceLineItem";
-import Refund from "./Refund";
+import Refund from "../payment/Refund";
 
 
 /**

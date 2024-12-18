@@ -1,4 +1,4 @@
-import PriceLineItem from "./PriceLineItem"
+import PriceLineItem from "../price/PriceLineItem"
 
 /**
  * 가격을 책정하는 정책의 인터페이스

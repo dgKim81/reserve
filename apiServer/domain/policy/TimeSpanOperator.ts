@@ -1,4 +1,4 @@
-import TimeSpan from "./TimeSpan";
+import TimeSpan from "../reservation/TimeSpan";
 
 export default class TimeSpanOperator {
   static merge(t1: TimeSpan, t2: TimeSpan) {
