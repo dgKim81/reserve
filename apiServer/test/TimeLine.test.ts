@@ -57,7 +57,6 @@ describe("TimeLine", () => {
       );
 
       timeLine.removeTimeSpan(timeSpan);
-
       expect(timeLine.getTimeSpans()).toEqual([]);
     });
   });

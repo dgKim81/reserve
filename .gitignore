@@ -2,6 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=node
 
 ### Node ###
+apiServer/build/*
+
 # Logs
 logs
 *.log
@@ -110,6 +112,7 @@ dist
 # Docusaurus cache and generated files
 .docusaurus
 
+apiServer/build/
 # Serverless directories
 .serverless/
 

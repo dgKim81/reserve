@@ -18,7 +18,7 @@ export default class TimeLine {
         const oTimeSpan: TimeSpan[] = this.timeSpans.filter(v => TimeSpanOperator.overlaps(span,v));
 
         if (oTimeSpan.length > 0) {
-            throw new Error(`${span}과과 겹치는 시간대가 존재합니다.`);
+            throw new Error(`${span}과 겹치는 시간대가 존재합니다.`);
         }
 
         const lTimeSpan: TimeSpan[] = this.timeSpans.filter(v => v.endTime < span.beginTime && !TimeSpanOperator.overlaps(span,v));
@@ -33,7 +33,11 @@ export default class TimeLine {
      */
     removeTimeSpan(span: TimeSpan) {
         const findedIdx = this.timeSpans.findIndex(v => v.equals(span));
-        this.timeSpans = this.timeSpans.splice(findedIdx, 1);
+        if (findedIdx === -1) {
+            console.warn("TimeSpan not found in the timeline.");
+            return;
+        }
+        this.timeSpans.splice(findedIdx, 1);
     }
 
     /**
@@ -121,20 +125,22 @@ export default class TimeLine {
         const newSpans:TimeSpan[] = [];
         let j = 0;
         for (let i = 0; i < thisSpans.length; i++) {
-            const element = thisSpans[i];
+            let element: TimeSpan | null = thisSpans[i];
             
             while (j < otherSpans.length && TimeSpanOperator.compare(element, otherSpans[j]) < 1) {
                 if (TimeSpanOperator.compare(element, otherSpans[j]) === 0) {
                     const splitTimeSpan = TimeSpanOperator.split(element, otherSpans[j]);
                     if (splitTimeSpan.length > 0) {
                         newSpans.push(...splitTimeSpan);
+                        element = null;
                         break;
                     }
                 }
                 j++;
             }
 
-            newSpans.push(new TimeSpan(element.beginTime, element.endTime));
+            if (element != null)
+                newSpans.push(new TimeSpan(element.beginTime, element.endTime));
         }
 
         const result: TimeLine = new TimeLine();
