@@ -1,5 +1,5 @@
-import TimeSpan from "../domain/reservation/TimeSpan";
-import TimeSpanOperator from "../domain/policy/TimeSpanOperator";
+import TimeSpan from "../domain/domainFramework/TimeSpan";
+import TimeSpanOperator from "../domain/domainFramework/TimeSpanOperator";
 
 describe("TimeSpanOperator", () => {
   const t1 = new TimeSpan(new Date("2024-01-01T12:00:00Z"), new Date("2024-01-01T14:00:00Z"));

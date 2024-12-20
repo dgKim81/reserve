@@ -1,14 +1,6 @@
-import TimeSpan from "./reservation/TimeSpan";
+import TimeSpan from "./domainFramework/TimeSpan";
 
 export default class ReservationService {
-    searchRoom() {
-
-    }
-
-    getRoomInfo() {
-
-    }
-
     getRoomReserveableTimeLine() {
 
     }

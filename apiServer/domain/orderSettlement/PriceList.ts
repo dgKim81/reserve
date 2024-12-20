@@ -1,6 +1,4 @@
-import Payment from "../payment/Payment";
 import PriceLineItem from "./PriceLineItem";
-import Refund from "../payment/Refund";
 
 
 /**
@@ -9,23 +7,39 @@ import Refund from "../payment/Refund";
  */
 export default class PriceList {
     priceId: number;
-    reserveId: number;
     priceLines: PriceLineItem[] = [];
     
-    payments: Payment[] = [];
-    refunds: Refund[] = [];
+    previousPriceId: number| null = null;
+    createDate: Date | null = null;
+    completed: boolean = false;
 
-    constructor(rid:number, pid:number) {
-        this.reserveId = rid;
+    constructor(pid:number) {
         this.priceId = pid;
     };
-
+    
     writePriceLine(priceLineItem: PriceLineItem) {
+        if (this.completed) {
+            throw new Error(`계산서(${this.priceId})는 이미 작성완료 되었습니다.`);
+        }
+
         this.priceLines.push(priceLineItem.clone()); 
     }
 
     removePriceLine(lineNumber: number) {
+        if (this.completed) {
+            throw new Error(`계산서(${this.priceId})는 이미 작성완료 되었습니다.`);
+        }
+
         this.priceLines.splice(lineNumber, 1);
+    }
+
+    compelted() {
+        if (this.completed) {
+            throw new Error(`계산서(${this.priceId})는 이미 작성완료 되었습니다.`);
+        }
+
+        this.createDate = new Date();
+        this.completed = true;
     }
 
     getPriceLines() {

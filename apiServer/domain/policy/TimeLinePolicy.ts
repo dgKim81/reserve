@@ -1,5 +1,4 @@
-import TimeLine from "../reservation/TimeLine";
-import TimeLineSpec from "./TimeLineSpec";
+import TimeLine from "../domainFramework/TimeLine";
 
 /**
  * 예약 시간에 대한 정책이다. 

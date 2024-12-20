@@ -1,4 +1,4 @@
-type RefundReason =
+export type RefundReason =
   | "paymentCancel"         // 결제 취소
   | "overPayment"           // 초과 결제
   | "discount"              // 할인
@@ -13,19 +13,16 @@ export default class Refund {
     occurrenceDate : Date;
     occurrenceReason : RefundReason;
     amount: number;
-    executionDate : Date;
 
     constructor(
         refundId: number,
         occurrenceDate: Date,
         occurrenceReason: RefundReason,
-        amount: number,
-        executionDate: Date
+        amount: number
     ) {
         this.refundId = refundId;
         this.occurrenceDate = occurrenceDate;
         this.occurrenceReason = occurrenceReason;
         this.amount = amount;
-        this.executionDate = executionDate;
     }
 }

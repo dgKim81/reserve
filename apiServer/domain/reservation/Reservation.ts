@@ -1,15 +1,50 @@
-import TimeLine from "./TimeLine";
+import TimeSpan from "domain/domainFramework/TimeSpan";
+import Customer from "./Customer";
+import RoomTime from "./RoomTime";
 
-type ReservationStatus = "wait" | "confirm" | "cancel";
+type ReservationStatus = "writing" | "wait" | "payment" | "confirm" | "managerCancel" | "customerCancel";
 
 class Reservation {
     reservationId: number;
-    customerId: number;
-    status: ReservationStatus = "wait";
+    customer: Customer;
+    private status: ReservationStatus = "writing";
+    roomTimes: RoomTime[] = [];
 
-    constructor(customerId:number, rid: number) { 
-        this.customerId = customerId;
+    public get Status() : string {
+        return this.status;
+    }
+
+    constructor(customer:Customer, rid: number) { 
+        this.customer = customer;
         this.reservationId = rid;
+    }
+
+    addRoomTime(roomId: number, times: TimeSpan[]) {
+
+    }
+
+    removeRoomTime(roomId: number, times: TimeSpan[]) {
+        
+    }
+
+    completeWrite() {
+        this.status = "wait";
+    }
+
+    waitPay() {
+        this.status = "payment";
+    }
+
+    confirm() {
+        this.status = "confirm";
+    }
+
+    cancelByManager() {
+        this.status = "managerCancel";
+    }
+
+    cancelByCustomer() {
+        this.status = "customerCancel";
     }
 
     validate(): boolean {
