@@ -1,9 +1,13 @@
-import TimeSpan from "domain/domainFramework/TimeSpan";
+import Entity from "../contextBase/Entity";
+import TimeSpan from "../domainFramework/TimeSpan";
 
-export default class RoomTime {
+export default class RoomTime extends Entity {
     constructor(
-        public roomId: number,
+        id : number,
         public displayName: string,
         public times: TimeSpan[]
-    ){ };
+    ){
+        super();
+        this.id = id;
+    };
 }
