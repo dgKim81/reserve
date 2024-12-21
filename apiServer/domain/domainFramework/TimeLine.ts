@@ -41,6 +41,21 @@ export default class TimeLine {
     }
 
     /**
+     * 시간대를 병합한다.
+     * @param span 병합할 시간대
+     */
+    mergeTimeSpan(span: TimeSpan) {
+        const lTimeSpan: TimeSpan[] = this.timeSpans.filter(v => v.endTime < span.beginTime && !TimeSpanOperator.overlaps(span,v));
+        const rTimeSpan: TimeSpan[] = this.timeSpans.filter(v => v.beginTime > span.endTime && !TimeSpanOperator.overlaps(span,v));
+        const mTimeSpan: TimeSpan[] = this.timeSpans.filter(v => TimeSpanOperator.overlaps(span,v));
+
+        const beginTime = mTimeSpan.reduce((acc, cur) => acc < cur.beginTime ? acc : cur.beginTime, span.beginTime);
+        const endTime = mTimeSpan.reduce((acc, cur) => acc > cur.endTime ? acc : cur.endTime, span.endTime);
+
+        this.timeSpans = [...lTimeSpan, new TimeSpan(beginTime, endTime), ...rTimeSpan];
+    }
+
+    /**
      * 시간대를 반환한다.
      * @returns 보유한 시간대
      */
@@ -149,6 +164,37 @@ export default class TimeLine {
         return result;
     }
     
+    /**
+     * 현재 시간대에 other 타임라인과 겹치는 시간대를 반환한다.
+     * @param other 대상 타입라인
+     * @returns 겹치는 시간대를 포함하는 타입라인
+     */
+    intersectTimeLine(other: TimeLine) {
+        const thisSpans = this.getTimeSpans();
+        const otherSpans = other.getTimeSpans();
+
+        const newSpans:TimeSpan[] = [];
+        let j = 0;
+        for (let i = 0; i < thisSpans.length; i++) {
+            let element: TimeSpan | null = thisSpans[i];
+            
+            while (j < otherSpans.length && TimeSpanOperator.compare(element, otherSpans[j]) < 1) {
+                if (TimeSpanOperator.compare(element, otherSpans[j]) === 0) {
+                    const nTimeSpan = TimeSpanOperator.intersect(element, otherSpans[j]);
+                    newSpans.push(nTimeSpan);
+                    element = null;
+                    break;
+                }
+                j++;
+            }
+        }
+
+        const result: TimeLine = new TimeLine();
+        result.fillTimeLine(newSpans);
+
+        return result;
+    }
+
     /**
      * 비어 있는 시간대의 타임라인을 계산한다.
      * @param beginTime 시작 시간(null이면 가장 작은 시간대의 시작시간)

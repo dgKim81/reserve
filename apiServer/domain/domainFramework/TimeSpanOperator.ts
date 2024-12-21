@@ -43,6 +43,20 @@ export default class TimeSpanOperator {
     return resultTimeSpans;
   }
 
+  static intersect(t1: TimeSpan, t2: TimeSpan) {
+    TimeSpanOperator.validForException(t1);
+    TimeSpanOperator.validForException(t2);
+
+    if (!TimeSpanOperator.overlaps(t1, t2)) {
+      throw Error(`t1(${t1})과 t2(${t2}) TimeSpan 객체는 겹치지 않습니다.`);
+    }
+
+    const beginTime = t1.beginTime > t2.beginTime ? t1.beginTime : t2.beginTime;
+    const endTime = t1.endTime > t2.endTime ? t2.endTime : t1.endTime;
+    
+    return new TimeSpan(beginTime, endTime);
+  }
+
   static overlaps(t1: TimeSpan, t2: TimeSpan) {
     return !(t1.endTime < t2.beginTime || t1.beginTime > t2.endTime);
   }

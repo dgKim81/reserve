@@ -1,14 +1,17 @@
+import AggregateRoot from "../contextBase/AggregateRoot";
 import Payment, { PaymentMethod } from "./Payment";
 import PriceList from "./PriceList";
 import Refund, { RefundReason } from "./Refund";
 
-export default class OrderSettlement {
+export default class OrderSettlement extends AggregateRoot {
     reserveId: number;
     price: PriceList | null = null;
     payments: Payment[] = [];
     refunds: Refund[] = [];
 
-    constructor(reserveId: number) {
+    constructor(orderSettlementId: number, reserveId: number) {
+        super();
+        this.id = orderSettlementId;
         this.reserveId = reserveId;
     }
 
