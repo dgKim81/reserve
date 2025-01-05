@@ -1,4 +1,4 @@
-import Entity from "../contextBase/Entity";
+import Entity from "./contextBase/Entity";
 
 export default class Customer extends Entity {
     constructor(){

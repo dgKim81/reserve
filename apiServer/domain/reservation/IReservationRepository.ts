@@ -10,5 +10,5 @@ export default interface IReservationRepository {
     getReservationStatus(reservationId: number): Promise<ReservationStatus>;
     getReservationsBySpec(spec: ReservationSpec, take: number, skip: number): Promise<ReservationStatus[]>;
 
-    saveReservation(reservation: Reservation): Promise<void>;
+    saveReservation(reservation: Reservation): Promise<Reservation>;
 }

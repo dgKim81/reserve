@@ -1,6 +1,6 @@
 import AggregateRoot from "../contextBase/AggregateRoot";
+import Customer from "../Customer";
 import TimeSpan from "../domainFramework/TimeSpan";
-import Customer from "./Customer";
 import ReservationStatusEvent from "./ReservationStatusEvent";
 import RoomTime from "./RoomTime";
 
